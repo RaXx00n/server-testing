@@ -2,12 +2,13 @@ const express = require('express');
 const https = require('https');
 const fs = require('fs');
 const mysql = require('mysql');
+const jwt = require('jsonwebtoken')
 
 const app = express();
 const port = 3000;
 
 const pool = mysql.createPool({
-  host: '127.0.0.1',
+  host: '172.31.9.191',
   user: 'root',
   password: 'root',
   database: 'auth',
@@ -50,9 +51,19 @@ app.post('/login', (req, res) => {
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
       }
 
+      // Upon successful login
       if (results.length > 0) {
         console.log('Login successful:', username);
-        res.json({ success: true, message: 'Login successful' });
+
+        const token = jwt.sign({ username }, 'insecurekeypleasechange12345');
+
+        console.log('JWT Token:', token);
+
+        // Send the token in both the headers and the response body
+        res.header('Authorization', `Bearer ${token}`);
+        res.json({ success: true, message: 'Login successful', token });
+
+        console.log('Token:', token);
       } else {
         console.log('Invalid credentials:', username);
         res.json({ success: false, message: 'Invalid credentials' });
