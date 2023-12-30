@@ -16,6 +16,7 @@ const pool = require('./db');
 
 const router = express.Router();
 
+
 // Your other dependencies and setup...
 
 router.post('/login', async (req, res, next) => {
