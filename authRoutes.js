@@ -52,7 +52,7 @@ router.post('/login', async (req, res, next) => {
         // CHANGE THIS SECRET CHANGE THIS SECRET CHANGE THIS SECRET CHANGE THIS SECRET 
         // CHANGE THIS SECRET CHANGE THIS SECRET CHANGE THIS SECRET CHANGE THIS SECRET 
 
-          const token = jwt.sign({ username }, 'insecurekeypleasechange12345');
+          const token = jwt.sign({ username }, 'BanBlitzcrank');
   
           console.log('JWT Token:', token);
   
